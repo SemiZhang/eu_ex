@@ -1,0 +1,38 @@
+name: 'Euserv Renew'
+
+on:
+  workflow_dispatch:
+  #schedule:
+  #  - cron: '0 0 * * SAT'
+    
+jobs:
+  Euserv Renew:
+    runs-on: ubuntu-latest
+    steps:
+      - name: CheckOut
+        uses: actions/checkout@v3
+            
+      - name: Setup Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.x'
+          
+      - name: Install requirements
+        run: pip install -r requirements.txt
+      
+      - name: Renew
+        env: 
+            CUSTOMERIDS: ${{ secrets.CUSTOMERIDS }}
+            PASSWORDS: ${{ secrets.PASSWORDS }}
+            TRUECAPTCHA_USERID: ${{ secrets.TRUECAPTCHA_USERID }}
+            TRUECAPTCHA_APIKEY: ${{ secrets.TRUECAPTCHA_APIKEY }}
+            AIRTABLE_API_KEY: ${{ secrets.AIRTABLE_API_KEY }}
+            AIRTABLE_BASE_IDS: ${{ secrets.AIRTABLE_BASE_IDS }}
+            TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
+            TG_USER_ID: ${{ secrets.TG_USER_ID }}
+            RECEIVER_EMAIL: ${{ secrets.RECEIVER_EMAIL }}
+            YD_EMAIL: ${{ secrets.YD_EMAIL }}
+            YD_APP_PWD: ${{ secrets.YD_APP_PWD }}
+            SERVER_CHAN_SENDKEY: ${{ secrets.SERVER_CHAN_SENDKEY }}
+        run: python main.py
+
