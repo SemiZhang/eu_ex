@@ -885,6 +885,7 @@ class EUserv(object):
             "subaction": "kc2_customer_contract_details_extend_contract_term",
             "token": token,
         }
+        time.sleep(5)
         session.post(url, headers=headers, data=data)
         time.sleep(5)
         return True
